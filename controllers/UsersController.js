@@ -17,6 +17,7 @@ class UsersController {
     }
 
     async register(req, res, next) {
+        this.status = 200;
         const user_req = _.pick(req.body, ["username", "email", "password"]);
         //console.log(user_req);
         try {
@@ -34,7 +35,7 @@ class UsersController {
             user_req.password = await bcrypt.hash(user_req.password, salt);
             // console.log("after hash");
             let user_exist_response = await this.auth.validate_user_pwd(user_req);
-            console.log("repon");
+            console.error(user_exist_response);
             if (Object.keys(user_exist_response).length) {
                 return user_exist_response;
             }
@@ -60,11 +61,12 @@ class UsersController {
     }
 
     async login(req, res, next) {
+        //this.status = 200;
         try {
             let { error } = UserValidation.validateLogin(req.body);
             if (error) {
                 let err_obj = getErrorObj(error);
-                this.status = 400;
+                //this.status = 400;
                 return {
                     code: 400,
                     errors: err_obj
@@ -74,7 +76,7 @@ class UsersController {
             let credentials = _.pick(req.body, ["username", "password"]);
             let user_obj = await this.auth.chk_valid_user_pwd_loggedIn(credentials);
             if (user_obj.code != 200) {
-                this.status = 400;
+                //this.status = 400;
                 //console.log("error");
                 return user_obj;
             }
@@ -91,6 +93,10 @@ class UsersController {
 
 
     async reset(req, res, next) {
+        let user_pwd_errObj = {
+            "code": 200,
+            "errors": {}
+        };
         try {
             let user_credentials = _.pick(req.body, ["username", "password"]);
             let user_query = {
@@ -104,7 +110,7 @@ class UsersController {
             }
             let isMatchingPassword = await bcrypt.compare(user_credentials.password, user_obj.password);
             if (isMatchingPassword) {
-                this.status = 400;
+                //this.status = 400;
                 return {
                     code: 400,
                     message: "try to give password not used before"

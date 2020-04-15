@@ -45,7 +45,7 @@ class AuthValidation {
         let user_query = {
             username: user_credentials.username
         };
-        let user_obj = await this.get_user_obj_or_err_usrname(user_query);
+        let user_obj = await this.get_user_obj_or_err_usrname(user_query, user_pwd_errObj);
         if (user_obj.code != 200) {
             return user_obj;
         }

@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("./index");
-const fs = require("fs");
+const Note = require("./Note");
 
 const Model = Sequelize.Model;
 class User extends Model {}
@@ -38,6 +38,11 @@ User.init({
     sequelize,
     modelName: 'users'
         // options
+});
+
+User.Notes = User.hasMany(Note, {
+    foreignKey: "user_id",
+    onDelete: 'CASCADE'
 });
 
 module.exports = User;
