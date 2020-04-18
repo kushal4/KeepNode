@@ -1,0 +1,19 @@
+{
+    "development": {
+        "database": "Keep",
+        "host": "localhost",
+        "port": "3307",
+        "dialect": "mongodb"
+    },
+    "test": {
+        "database": "Keep_test",
+        "host": "localhost",
+        "port": "3307",
+        "dialect": "mongodb"
+    },
+    "production": {
+        "database": "database_production",
+        "host": "localhost",
+        "dialect": "mongodb"
+    }
+}

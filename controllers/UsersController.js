@@ -116,8 +116,8 @@ class UsersController {
                     message: "try to give password not used before"
                 };
             } else {
-                let updated_result = await this.auth.update_user(user_credentials);
-                if (updated_result.length > 0) {
+                let updated_result_len = await this.auth.update_user(user_credentials);
+                if (updated_result_len > 0) {
                     let user = this.auth.get_user_with_token(user_credentials);
                     return user;
                 }

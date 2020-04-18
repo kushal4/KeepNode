@@ -1,9 +1,8 @@
 const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/db_config.json')[env];
-//console.log(config.database);
+const config = require("../../config/mysql_db_config.json")[env];
 //connecting to mysql and fetching the db credentials from config/config.json
-sequelize = new Sequelize(config.database, config.user, config.password, config)
+sequelize = new Sequelize(config.database, config.user, config.password, config);
 
 //this is to authenticate whether a successfull connection with mysql server is made or not
 sequelize

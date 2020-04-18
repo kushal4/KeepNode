@@ -1,4 +1,4 @@
-const Note = require("../models/Note");
+const Note = require("../../models/mysql/Note");
 class NoteRepository {
 
     async save(note_obj) {
@@ -29,7 +29,7 @@ class NoteRepository {
         let updated_result = await Note.update(updateQuery, {
             where: wherQuery
         });
-        return updated_result;
+        return updated_result.length;
     }
 }
 

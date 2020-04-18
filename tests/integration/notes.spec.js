@@ -1,6 +1,6 @@
 const app = require("../../startup/app");
 const request = require('supertest');
-const NoteRepository = require("../../repositories/NoteRepository");
+const NoteRepository = require("../../repositories/mysql/NoteRepository");
 const expect = require("../utils/expect_utils");
 
 let noteRepo;

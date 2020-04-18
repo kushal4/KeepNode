@@ -1,16 +1,18 @@
-const UserRepository = require("../../repositories/UserRepository");
+//const UserRepository = require("../../repositories/mysql/UserRepository");
+const UserService = require("../../services/UserService");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
 class AuthValidation {
 
     constructor() {
-        this.userRepo = new UserRepository();
+        this.userRepo = new UserService();
+        //console.log("userservice");
     }
     async validate_user_pwd(user_obj) {
 
-        console.log(user_obj);
+        // console.log(user_obj);
         let user = await this.userRepo.find({ email: user_obj.email });
-        //console.log("adfer");
+        // console.log("validating");
         if (user) {
             this.status = 400;
             return {
@@ -25,7 +27,7 @@ class AuthValidation {
 
     async save_user(user_req) {
         let saved_user = await this.userRepo.save(user_req);
-        console.log(saved_user);
+        //console.log(saved_user);
         if (!saved_user) {
             return {
                 code: 400,
@@ -41,6 +43,7 @@ class AuthValidation {
             "code": 200,
             "errors": {}
         };
+        //console.log("wohooo");
         //let user = "";
         let user_query = {
             username: user_credentials.username
@@ -51,7 +54,7 @@ class AuthValidation {
         }
         let inp_password = user_credentials.password;
         let isValidPassword = await bcrypt.compare(inp_password, user_obj.password);
-        console.log(isValidPassword);
+        //console.log(isValidPassword);
         if (!isValidPassword) {
             //console.log("not valid");
             this.status = 400;
@@ -79,7 +82,7 @@ class AuthValidation {
     }
 
     get_user_with_token(user) {
-        console.log(user);
+        // console.log(user);
         user = _.pick(user, ["username", "email", "code"]);
         user.code = user.code || 200;
         user.access_token = this.userRepo.generateToken();

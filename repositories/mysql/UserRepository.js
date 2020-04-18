@@ -1,5 +1,5 @@
-const User = require("../models/User");
-const JWtWrapper = require("../utils/JwtWrapper");
+const User = require("../../models/mysql/User");
+const JWtWrapper = require("../../utils/JwtWrapper");
 class UserRepository {
 
     constructor() {
@@ -20,7 +20,7 @@ class UserRepository {
         if (update_result.length) {
             this.create_jwt_payload();
         }
-        return update_result;
+        return update_result.length;
     }
 
     async find(user_query = {}) {

@@ -32,6 +32,8 @@ class NotesController {
                 let imageData = fs.readFileSync(req.file.path);
                 if (imageData != "") {
                     note_creds.image = imageData;
+                    //note_creds.image = new Buffer(imageData.toString('base64'), "base64");
+                    // a.image.contentType = 'image/png';
                 }
                 // console.log(imageData);
 
@@ -66,6 +68,7 @@ class NotesController {
         try {
             let user_id = req.params.id;
             let note_id = req.params.note_id;
+            //console.log("note id ", note_id);
             let note_marked_req = _.pick(req.body, ["is_done"]);
             let note_query = {
                 id: note_id,
